@@ -17,8 +17,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :course_organization %>
-    <%= form.text_field :course_organization, id: :course_name %>
+  <%= form.label :course_organization %>
+  <%= form.text_field :course_organization %>
+  </div>
+
+  <div class="field">
+    <%= form.label :slack %>
+    <%= form.text_field :slack, readonly: true %>
   </div>
 
   <div class="field">

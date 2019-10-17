@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :slack_workspaces
+
   resources :users
 
   # home page routes

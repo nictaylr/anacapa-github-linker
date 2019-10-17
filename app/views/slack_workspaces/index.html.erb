@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Slack Workspaces</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @slack_workspaces.each do |slack_workspace| %>
+      <tr>
+        <td><%= link_to 'Show', slack_workspace %></td>
+        <td><%= link_to 'Edit', edit_slack_workspace_path(slack_workspace) %></td>
+        <td><%= link_to 'Destroy', slack_workspace, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Add Slack Workspace', new_slack_workspace_path %>
