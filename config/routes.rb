@@ -25,7 +25,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :slack_workspaces
+  resources :slack_workspaces do
+    get :auth_callback, on: :collection
+  end
+ # match 'slack_workspaces/authCallback' => 'slack_workspaces#authCallback', :via => :get
 
   resources :users
 

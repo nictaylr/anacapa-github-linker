@@ -19,3 +19,9 @@ MACHINE_USER_KEY=<your machine user's key>
 
 # This can be any arbitrary value; it is used for crytographic security
 DEVISE_SECRET_KEY=<a random alphunmeric string used by devise to salt its sessions>
+
+# These are tokens and keys provided by Slack's app integration at api.slack.com under the corresponding created app.
+# They are necessary for this linker's Slack workspace integration.
+SLACK_CLIENT_ID=
+SLACK_CLIENT_SECRET=
+SLACK_SIGNING_SECRET=

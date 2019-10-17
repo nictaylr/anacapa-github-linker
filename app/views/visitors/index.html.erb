@@ -1,6 +1,7 @@
 <% if !user_signed_in? %>
   <%= render 'splash' %>
 <% else %>
+  <p id="notice"><%= notice %></p>
   <% if current_user.has_role? :admin %>
     <h1> Welcome Admin </h1>
     <p> Proceed to the courses page to manage classes or to the users page to manage users </p>

@@ -86,3 +86,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
 
 gem "actionview", ">= 5.1.6.2"
+
+# Slack bot integration
+gem 'slack-ruby-bot-server'
