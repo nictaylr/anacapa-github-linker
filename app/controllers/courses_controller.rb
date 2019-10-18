@@ -21,6 +21,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+    puts "Hello test!"
   end
 
   # POST /courses
@@ -87,7 +88,7 @@ class CoursesController < ApplicationController
       message = 'Your email did not match the email of any student on the course roster. Please check that your github email is correctly configured to match your school email and that you have verified your email address. '
       return redirect_to courses_path, alert: message
     end
-    
+
     begin
        course.invite_user_to_course_org(current_user)
        roster_student.update_attribute(:enrolled, true)
@@ -97,6 +98,21 @@ class CoursesController < ApplicationController
       message = "Unable to invite #{current_user.username} to #{course.course_organization}; check whether #{ENV['MACHINE_USER_NAME']} has admin permission on that org.   Error: #{e.message}"
       redirect_to courses_path, alert: message
     end
+  end
+
+  def is_org_member(username)
+    machine_user.organization_member?(@course.course_organization, username)
+  end
+  helper_method :is_org_member
+
+  def slack_auth_callback
+    client = Slack::Web::Client.new
+    rc = client.oauth_access(
+        client_id: ENV['SLACK_CLIENT_ID'],
+        client_secret: ENV['SLACK_CLIENT_SECRET'],
+        code: params[:code])
+    flash[:notice] = rc
+    redirect_to root_path
   end
 
   private
@@ -112,6 +128,10 @@ class CoursesController < ApplicationController
 
     def add_instructor(id)
       current_user.add_role :instructor, Course.find(id)
+    end
+
+    def machine_user
+      client = Octokit_Wrapper::Octokit_Wrapper.machine_user
     end
 
     def session_user

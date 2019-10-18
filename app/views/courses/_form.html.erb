@@ -16,6 +16,7 @@
     <%= form.text_field :name, id: :course_name %>
   </div>
 
+  <p>
   <div class="field">
   <%= form.label :course_organization %>
   <%= form.text_field :course_organization %>
@@ -25,6 +26,30 @@
     <%= form.label :slack %>
     <%= form.text_field :slack, readonly: true %>
   </div>
+  </p>
+
+  <% if @course.persisted? %>
+  <p>
+  <div class="field">
+    <%= form.label :slack %>
+    <%= form.text_field :slack, :value => @course.slack || "No workspace connected", :maxlength => "25", :readonly =>
+        true%>
+  </div>
+  </p>
+    <% if !@course.slack? %>
+      <p>
+    <a href=<%= "https://slack.com/oauth/authorize?scope=commands,bot&client_id=795375685718.781696135747&state=" +
+        String(@course.id) %>> Connect Slack workspace</a>
+    </p>
+    <% else %>
+      <a href=<%= "https://slack.com/oauth/authorize?scope=commands,bot&client_id=795375685718.781696135747&state=" +
+        String(@course.id) %>> Update Slack workspace authentication</a>
+      <p>
+      <a href=<%= "https://slack.com/oauth/authorize?scope=commands,bot&client_id=795375685718.781696135747&state=" +
+        String(@course.id) %>> Remove Slack workspace from course</a>
+      </p>
+    <% end %>
+  <% end %>
 
   <div class="field">
     <%= form.label :hidden %>

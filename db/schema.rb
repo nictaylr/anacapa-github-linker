@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191017085552) do
+ActiveRecord::Schema.define(version: 20191018052054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20191017085552) do
     t.boolean "hidden"
     t.boolean "enable_web_hooks", default: false, null: false
     t.string "slack"
+    t.bigint "slack_workspace_id"
+    t.index ["slack_workspace_id"], name: "index_courses_on_slack_workspace_id"
   end
 
   create_table "hook_events", force: :cascade do |t|
@@ -68,6 +70,7 @@ ActiveRecord::Schema.define(version: 20191017085552) do
     t.string "access_token"
     t.string "bot_access_token"
     t.string "slack_url"
+    t.string "scope"
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,6 +102,7 @@ ActiveRecord::Schema.define(version: 20191017085552) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "courses", "slack_workspaces"
   add_foreign_key "hook_events", "courses"
   add_foreign_key "roster_students", "courses"
   add_foreign_key "roster_students", "users"
